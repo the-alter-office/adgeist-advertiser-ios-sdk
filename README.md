@@ -16,7 +16,7 @@ Or add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/the-alter-office/adgeist-advertiser-ios-sdk", from: "0.0.5")
+    .package(url: "https://github.com/the-alter-office/adgeist-advertiser-ios-sdk", from: "0.0.8")
 ],
 targets: [
     .target(
