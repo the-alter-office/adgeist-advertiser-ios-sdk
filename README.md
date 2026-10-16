@@ -16,7 +16,7 @@ Or add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/the-alter-office/adgeist-advertiser-ios-sdk", from: "0.0.9-beta.1")
+    .package(url: "https://github.com/the-alter-office/adgeist-advertiser-ios-sdk", from: "0.0.10-beta.1")
 ],
 targets: [
     .target(
@@ -115,6 +115,18 @@ func application(_ app: UIApplication, open url: URL,
 
 ## Usage
 
+### Identify the user
+
+Attributes conversions to the user. Call once you know who the user is, typically after login. All parameters are optional.
+
+```swift
+AdgeistAttribution.shared.setUser(
+    userId: "u_123",
+    userName: "Jane Doe",
+    userEmail: "jane@example.com"
+)
+```
+
 ### Track a visit / deeplink open
 
 ```swift
@@ -154,33 +166,6 @@ override func viewDidAppear(_ animated: Bool) {
 }
 ```
 
-### Track session end
-
-Call from the app lifecycle when the session ends — typically when the app goes to the background. Sends a `SESSION_END` event.
-
-#### SwiftUI
-
-```swift
-@Environment(\.scenePhase) private var scenePhase
-
-WindowGroup {
-    ContentView()
-        .onChange(of: scenePhase) { phase in
-            if phase == .background {
-                AdgeistAttribution.shared.sendSessionEndEvent()
-            }
-        }
-}
-```
-
-#### UIKit
-
-```swift
-func sceneDidEnterBackground(_ scene: UIScene) {
-    AdgeistAttribution.shared.sendSessionEndEvent()
-}
-```
-
 ### Track a custom event
 
 ```swift
@@ -192,6 +177,3 @@ AdgeistAttribution.shared.sendCustomEvent(
 
 Only `Bool`, `Int`, `Double`, and `String` property values are supported; other types are dropped. The same applies to `sendEngagementEvent` properties.
 
-## Event timing
-
-Every event carries `additionalData.timeElapsed` — milliseconds between this event and the previously sent one. `VISIT` always reports `0`, since it opens the session. The value is measured with a monotonic clock, so it is unaffected by device clock changes.
