@@ -16,7 +16,7 @@ Or add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/the-alter-office/adgeist-advertiser-ios-sdk", from: "0.0.10-beta.1")
+    .package(url: "https://github.com/the-alter-office/adgeist-advertiser-ios-sdk", from: "0.0.10-beta.2")
 ],
 targets: [
     .target(
@@ -120,10 +120,11 @@ func application(_ app: UIApplication, open url: URL,
 Attributes conversions to the user. Call once you know who the user is, typically after login. All parameters are optional.
 
 ```swift
-AdgeistAttribution.shared.setUser(
+AdgeistAttribution.shared.setUserDetails(
     userId: "u_123",
-    userName: "Jane Doe",
-    userEmail: "jane@example.com"
+    email: "jane@example.com",
+    phone: "+15551234567",
+    name: "Jane Doe"
 )
 ```
 
