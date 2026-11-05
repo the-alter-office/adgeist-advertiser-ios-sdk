@@ -16,7 +16,7 @@ Or add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/the-alter-office/adgeist-advertiser-ios-sdk", from: "0.0.10-beta.4")
+    .package(url: "https://github.com/the-alter-office/adgeist-advertiser-ios-sdk", from: "0.0.12-beta.1")
 ],
 targets: [
     .target(
@@ -57,14 +57,10 @@ Add a usage description to your app's `Info.plist`:
 <string>We use your advertising identifier to provide personalized ads and measure ad performance.</string>
 ```
 
-Then request authorization early in your app's lifecycle (e.g. right after launch), before you expect any events to be sent:
+Then request authorization while the app is active, before you expect any events to be sent:
 
 ```swift
-import AppTrackingTransparency
-
-ATTrackingManager.requestTrackingAuthorization { _ in
-    // SDK will pick up the resulting status automatically.
-}
+let granted = await AdgeistAttribution.shared.requestAdTrackingAutorisation()
 ```
 
 If the user declines or the app doesn't request authorization, the SDK falls back to a locally generated identifier instead of the IDFA.
